@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: doovo-api
+    env: node
+    buildCommand: npm install && npm run build && npx prisma generate && npx prisma migrate deploy
+    startCommand: npm run start:prod
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: doovo-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: doovo-db
+    databaseName: doovo
+    user: doovo_user
