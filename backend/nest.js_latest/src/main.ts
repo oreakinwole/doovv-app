@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
-import { writeFileSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -34,11 +34,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  writeFileSync('./docs/swagger.json', JSON.stringify(document, null, 2));
+  if (!existsSync('../../docs')) {
+    mkdirSync('../../docs', { recursive: true });
+  }
+  writeFileSync('../../docs/swagger.json', JSON.stringify(document, null, 2));
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
   console.log(`🚀 Doovo API running on http://localhost:${port}`);
-  // console.log(`📚 Swagger docs: http://localhost:${port}/api`);
+  console.log(`📚 Swagger docs: http://localhost:${port}/api`);
 }
 bootstrap();
