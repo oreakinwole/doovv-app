@@ -1,5 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, UseGuards, Request, Headers } from '@nestjs/common';
-import { ApiTags, ApiResponse, ApiBearerAuth, ApiHeader } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  UseGuards,
+  Request,
+  Headers,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiHeader,
+} from '@nestjs/swagger';
 import { BookingsService } from './bookings.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingStatusDto } from './dto/update-booking-status.dto';
@@ -24,7 +39,11 @@ export class BookingsController {
     @Request() req,
     @Headers('idempotency-key') idempotencyKey?: string,
   ) {
-    return this.bookingsService.create(createBookingDto, req.user.id, idempotencyKey);
+    return this.bookingsService.create(
+      createBookingDto,
+      req.user.id,
+      idempotencyKey,
+    );
   }
 
   @Patch(':id/status')

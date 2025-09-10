@@ -1,5 +1,3 @@
-
-
 // ============ MAIN APPLICATION ============
 
 // src/main.ts
@@ -12,13 +10,15 @@ import { writeFileSync } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
-  app.useGlobalPipes(new ValidationPipe({ 
-    whitelist: true, 
-    forbidNonWhitelisted: true 
-  }));
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
   app.useGlobalFilters(new HttpExceptionFilter());
-  
+
   app.enableCors({
     origin: true,
     credentials: true,
@@ -30,10 +30,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth()
     .build();
-  
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  
+
   writeFileSync('./docs/swagger.json', JSON.stringify(document, null, 2));
 
   const port = process.env.PORT || 3000;
