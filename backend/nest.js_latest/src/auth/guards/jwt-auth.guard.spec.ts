@@ -23,13 +23,22 @@ describe('JwtAuthGuard', () => {
   });
 
   it('should allow access with valid token', async () => {
-    const mockUser = { id: '1', email: 'test@example.com', role: 'CUSTOMER' };
+    const mockUser = {
+      id: '1',
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'hashedpassword',
+      role: 'CUSTOMER' as any,
+      phone: '1234567890',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
     const mockContext = {
       switchToHttp: () => ({
         getRequest: () => ({
-          headers: { authorization: 'Bearer valid-token' }
-        })
-      })
+          headers: { authorization: 'Bearer valid-token' },
+        }),
+      }),
     } as any;
 
     jest.spyOn(jwtService, 'verify').mockReturnValue({ sub: '1' });
