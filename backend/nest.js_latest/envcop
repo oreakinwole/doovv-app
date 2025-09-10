@@ -1,0 +1,23 @@
+# DATABASE_URL_DEV=mongodb://localhost:27017
+# JWT_SECRET="doovo()secret1jwt"
+# DATABASE_URL=mongodb+srv://monigerdb:d5SvsWERgUCKI8O9@moniger.yoksp2h.mongodb.net/moniger
+# NODE_ENV='development'
+# APP_NAME='Doovo'
+# PORT=9060
+# EXPO_ACCESS_TOKEN=
+# PASSWORD = NQMu36c1DIvIpHqB
+
+# REFRESH_JWT_SECRET="moniger()secret1jwt"
+# JWT_ALGORITHM=HS256
+# JWT_EXPIRES_IN=1d
+# REFRESH_JWT_EXPIRES_IN=1d
+
+
+# # log level
+# LOG_LEVEL= configDebug
+
+
+
+
+# #EXPO
+# # EXPO_ACCESS_TOKEN=11CZp-rdi5CZjK1kTamUQvXd8dZ9hg6sH8sJ1LLJ
