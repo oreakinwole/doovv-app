@@ -6,10 +6,11 @@ import { RealtimeModule } from '../realtime/realtime.module';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { LegacyModule } from '../legacy/legacy.module';
 import { AuthModule } from '../auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [RealtimeModule, NotificationsModule, LegacyModule, AuthModule],
   controllers: [BookingsController],
-  providers: [BookingsService, PrismaService],
+  providers: [BookingsService, PrismaService, JwtService],
 })
 export class BookingsModule {}
