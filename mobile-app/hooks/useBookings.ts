@@ -1,5 +1,3 @@
-
-// src/hooks/useBookings.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { bookingsApi } from '../api/bookingsApi';
 import { CreateBookingDto, UpdateBookingStatusDto } from '../types';
@@ -52,7 +50,7 @@ export function useUpdateBookingStatus() {
     onMutate: async ({ id, data }) => {
       await queryClient.cancelQueries({ queryKey: ['bookings'] });
       const previousBookings = queryClient.getQueryData(['bookings']);
-      
+
       queryClient.setQueryData(['bookings'], (old: any) =>
         old?.map((booking: any) =>
           booking.id === id ? { ...booking, status: data.status } : booking

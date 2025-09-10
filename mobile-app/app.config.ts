@@ -17,6 +17,7 @@ export default {
           launchMode: 'most-recent',
         },
       ],
+      ['expo-web-browser'],
     ],
     experimental: {
       fabric: true,
