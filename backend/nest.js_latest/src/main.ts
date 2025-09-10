@@ -1,50 +1,44 @@
-import {
-  BadRequestException,
-  Logger,
-  ValidationError,
-  ValidationPipe,
-} from '@nestjs/common';
-import { NestApplication, NestFactory } from '@nestjs/core';
-import { AppOptions } from '@utils/app.options.utils';
+
+
+// ============ MAIN APPLICATION ============
+
+// src/main.ts
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { NestExpressApplication } from '@nestjs/platform-express';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { writeFileSync } from 'fs';
 
 async function bootstrap() {
-  process.env.TZ = 'Africa/Lagos'; //set timezone to africa/lagos
-
-  const app = await NestFactory.create<NestExpressApplication>(
-    AppModule,
-    AppOptions,
-  );
-
-  app.setGlobalPrefix('/api/v2');
-
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      transform: true,
-      exceptionFactory: (errors: ValidationError[]) => {
-        return new BadRequestException({
-          statusText: 'bad request',
-          status: 400,
-          message:
-            errors[0]?.children[0]?.children[0]?.constraints[
-              Object?.keys(errors[0]?.children[0]?.children[0]?.constraints)[0]
-            ] ||
-            errors[0]?.children[0]?.constraints[
-              Object?.keys(errors[0]?.children[0]?.constraints)[0]
-            ] ||
-            errors[0]?.constraints[Object?.keys(errors[0]?.constraints)[0]] ||
-            'Unable to validate request',
-        });
-      },
-    }),
-  );
-
-  const logger = new Logger(NestApplication.name);
-  const port = process.env.PORT || 8080
-  await app.listen(port, () => {
-    logger.log(`Server is now listening on port ${port}`);
+  const app = await NestFactory.create(AppModule);
+  
+  app.useGlobalPipes(new ValidationPipe({ 
+    whitelist: true, 
+    forbidNonWhitelisted: true 
+  }));
+  app.useGlobalFilters(new HttpExceptionFilter());
+  
+  app.enableCors({
+    origin: true,
+    credentials: true,
   });
+
+  const config = new DocumentBuilder()
+    .setTitle('Doovo Car Wash API')
+    .setDescription('Car wash booking and management system')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+  
+  writeFileSync('./docs/swagger.json', JSON.stringify(document, null, 2));
+
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`🚀 Doovo API running on http://localhost:${port}`);
+  console.log(`📚 Swagger docs: http://localhost:${port}/api`);
 }
 bootstrap();

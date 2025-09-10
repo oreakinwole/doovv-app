@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(CUSTOMER)
+  name      String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bookings  Booking[]
+
+  @@map("users")
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  customerId    String
+  customer      User          @relation(fields: [customerId], references: [id])
+  serviceType   ServiceType
+  vehicleInfo   String
+  address       String?
+  scheduledAt   DateTime
+  status        BookingStatus @default(PENDING)
+  washerId      String?
+  notes         String?
+  price         Decimal       @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  @@map("bookings")
+}
+
+model BookingHistory {
+  id        String   @id @default(cuid())
+  bookingId String
+  status    String
+  notes     String?
+  timestamp DateTime @default(now())
+  
+  @@map("booking_history")
+}
+
+enum Role {
+  CUSTOMER
+  WASHER
+  ADMIN
+}
+
+enum ServiceType {
+  DROP_OFF
+  MOBILE
+  PICKUP_RETURN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
