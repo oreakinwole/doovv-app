@@ -1,7 +1,5 @@
 {
-  "cSpell.words": ["TERMMIII"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
-  "postman.settings.dotenv-detection-notification-visibility": false
 }
