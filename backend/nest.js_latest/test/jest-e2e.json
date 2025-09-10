@@ -1,0 +1,19 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@validators/(.*)$": "<rootDir>/src/validators/$1",
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@transformers/(.*)$": "<rootDir>/src/transformers/$1",
+    "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
+    "^@interfaces/(.*)$": "<rootDir>/src/interfaces/$1",
+    "^@entities/(.*)$": "<rootDir>/src/entities/$1",
+    "^@dto/(.*)$": "<rootDir>/src/dto/$1",
+    "^src/(.*)$": "<rootDir>/src/$1"
+  }
+}
