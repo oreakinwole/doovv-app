@@ -29,9 +29,9 @@ export default {
     newArchEnabled: true,
     userInterfaceStyle: 'light',
     splash: {
-      image: './assets/icon.png',
+      image: './assets/splash.png',
       resizeMode: 'contain',
-      backgroundColor: '#FF6400',
+      backgroundColor: '#ffffff',
     },
     assetBundlePatterns: ['**/*'],
     ios: {
@@ -44,7 +44,7 @@ export default {
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/icon.png',
-        backgroundColor: '#FF6400',
+        backgroundColor: '#ffffff',
       },
       package: 'com.anonymous.doovo',
     },
