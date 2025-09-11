@@ -1,75 +1,145 @@
-# Doovo Car Wash Backend
+# 🚀 Moniger Backend v2
 
-Complete car wash booking system with NestJS and Laravel backends.
+A robust NestJS backend application providing comprehensive server-side functionality with TypeScript support.
 
-## NestJS Backend
+## 🗋 Table of Contents
 
-### Features
-✅ NestJS 10+ with TypeScript
-✅ Prisma ORM with PostgreSQL
-✅ JWT Authentication with roles (customer/washer)
-✅ Idempotency support for bookings
-✅ Real-time WebSocket updates
-✅ Swagger documentation
-✅ Global exception handling
-✅ Comprehensive testing
+- [Tech Stack](#-tech-stack)
+- [Features](#-features)
+- [Dependencies](#-dependencies)
+- [Installation](#-installation)
+- [Running the Application](#-running-the-application)
+- [Testing](#-testing)
+- [Deployment](#-deployment)
+- [Available Scripts](#-available-scripts)
 
-### Quick Start
+## 💻 Tech Stack
+
+- **Framework**: NestJS
+- **Runtime**: Node.js
+- **Language**: TypeScript
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT
+- **Email Services**: SendGrid, Nodemailer, Resend
+- **Cloud Services**: Google Cloud Storage, Google PubSub, Google cloud services
+- **Caching**: Node-Cache
+- **Monitoring**: Winston Logger
+- **Push Notifications**: Expo Server SDK
+- **Analytics**: Mixpanel
+- **Task Scheduling**: @nestjs/schedule
+
+## ✨ Features
+
+- RESTful API architecture
+- MongoDB integration with Mongoose ORM
+- JWT-based authentication
+- File upload and storage (Google Cloud Storage)
+- Email service integration (SendGrid, Nodemailer, Resend SMTP)
+- Push notifications (Expo)
+- Event handling with EventEmitter
+- Scheduled tasks and cron jobs
+- Form data handling and validation
+- Microservices support
+- Cloud messaging with Google PubSub
+- Template rendering with Handlebars
+- Environment configuration management
+- Comprehensive logging system
+
+## 📦 Dependencies
+
+### Core Dependencies
+
+- `@nestjs/common`, `@nestjs/core`: NestJS framework
+- `@nestjs/mongoose`: MongoDB integration
+- `@nestjs/jwt`: JWT authentication
+- `@nestjs/config`: Configuration management
+- `@nestjs/schedule`: Task scheduling
+- `@nestjs/event-emitter`: Event handling
+- `@google-cloud/storage`: Google Cloud Storage
+- `@google-cloud/pubsub`: Google Cloud PubSub
+- `@sendgrid/mail`: SendGrid email service
+
+### Utility Libraries
+
+- `bcrypt`: Password hashing
+- `class-validator`, `class-transformer`: Data validation
+- `moment`: Date manipulation
+- `winston`: Logging
+- `handlebars`: Template rendering
+- `node-cache`: Caching
+- `uuid`: Unique identifier generation
+
+## 🔧 Installation
+
+1. Clone the repository:
 ```bash
-cd backend
-npm install
-npx prisma generate
-npx prisma migrate dev
-npm run start:dev
+git clone https://github.com/MonigerTech/moniger-backend-v2.git
+cd moniger-backend-v2
 ```
 
-### API Endpoints
-- `POST /auth/login` - User authentication
-- `POST /bookings` - Create booking (supports Idempotency-Key)
-- `PATCH /bookings/:id/status` - Update status (washer only)
-- `GET /bookings` - List bookings (role-based)
-- `GET /bookings/history` - Booking history with legacy data
-
-### Testing
+2. Install dependencies:
 ```bash
-npm test                 # Unit tests
-npm run test:e2e        # E2E tests
+yarn install
 ```
 
-## Laravel Legacy Backend
+## 🚀 Running the Application
 
-### Features
-✅ Eloquent models with migrations
-✅ Form Request validation
-✅ Centralized exception handling
-✅ Database queue jobs
-✅ PHPUnit tests
-
-### Quick Start
+### Development Mode
 ```bash
-cd legacy-laravel
-composer install
-php artisan migrate
-php artisan queue:work --queue=default
+# Watch mode
+yarn start:dev
+
+# Debug mode
+yarn start:debug
 ```
 
-### API Endpoints
-- `GET /legacy/bookings/history` - Legacy booking history
-- `POST /legacy/bookings` - Create legacy booking
-
-### Testing
+### Production Mode
 ```bash
-php artisan test
+yarn start:prod
 ```
 
-## Deployment
+## 🧪 Testing
 
-Both backends are configured for easy deployment:
-- NestJS: Render free tier with PostgreSQL
-- Laravel: Any PHP hosting with MySQL/PostgreSQL
+```bash
+# Unit tests
+yarn test
 
-## Documentation
+# E2E tests
+yarn test:e2e
 
-- Swagger API docs: `/api`
-- Test coverage reports in `/docs/`
-- PHPUnit output screenshots in `/docs/`
+# Test coverage
+yarn test:cov
+```
+
+## 📦 Deployment
+
+```bash
+# push your changes and create a PR to main
+```
+
+## 📜 Available Scripts
+
+| Script          | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `prebuild`      | Clean build directory                            |
+| `build`         | Build the application                            |
+| `format`        | Format code using Prettier                       |
+| `start`         | Start the application                            |
+| `start:dev`     | Start in development watch mode                  |
+| `start:debug`   | Start in debug mode                              |
+| `start:prod`    | Start in production mode                         |
+| `lint`          | Run ESLint                                       |
+| `test`          | Run unit tests                                   |
+| `test:watch`    | Run tests in watch mode                          |
+| `test:cov`      | Generate test coverage report                    |
+| `test:debug`    | Run tests in debug mode                          |
+| `test:e2e`      | Run end-to-end tests                            |
+| `deploy`        | Build and deploy the application                 |
+
+## 🔐 Security Features
+
+- JWT-based authentication
+- Password hashing with bcrypt
+- Request validation
+- Secure file upload handling
+

@@ -1,8 +1,0 @@
-*.md
-**/build
-**/vendor
-/public
-composer.lock
-package-lock.json
-storage
-bun.lockb
