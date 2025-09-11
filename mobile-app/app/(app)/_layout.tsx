@@ -9,10 +9,6 @@ export default function AppLayout() {
     const { user, logout } = useAuth();
     const isCustomer = user?.role === 'CUSTOMER';
 
-    useEffect(() => {
-        console.log('User:', user);
-    }, [user]);
-
     if (!user) {
         return null;
     }
