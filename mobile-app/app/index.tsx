@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { View, ActivityIndicator } from 'react-native';
 import { useAuth } from '~/contexts/AuthContext';
 import tw from 'twrnc';
+import 'react-native-get-random-values';
 
 export default function Index() {
   const router = useRouter();
