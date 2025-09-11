@@ -20,7 +20,7 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
         if (!token || !user) return;
 
         try {
-            const wsUrl = `${process.env.EXPO_PUBLIC_WS_URL || 'ws://localhost:3000'}?token=${token}`;
+            const wsUrl = `${process.env.EXPO_PUBLIC_WS_URL || 'ws://localhost:9060'}?token=${token}`;
             wsRef.current = new WebSocket(wsUrl);
 
             wsRef.current.onopen = () => {

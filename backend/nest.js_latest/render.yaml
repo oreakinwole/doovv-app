@@ -1,20 +1,21 @@
 services:
   - type: web
-    name: doovo-api
-    env: node
-    buildCommand: npm install && npm run build && npx prisma generate && npx prisma migrate deploy
+    name: doovo-backend
+    runtime: node
+    plan: starter
+    rootDir: backend/nest.js_latest
+    buildCommand: npm install && npm run build
     startCommand: npm run start:prod
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: DATABASE_URL
         fromDatabase:
           name: doovo-db
           property: connectionString
-      - key: JWT_SECRET
-        generateValue: true
-      - key: NODE_ENV
-        value: production
+    autoDeploy: false
 
 databases:
   - name: doovo-db
     databaseName: doovo
-    user: doovo_user
+    plan: starter

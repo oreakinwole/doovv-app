@@ -16,6 +16,16 @@ const queryClient = new QueryClient({
   },
 });
 
+function RootStack() {
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="(app)" />
+    </Stack>
+  );
+}
+
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -24,11 +34,7 @@ export default function RootLayout() {
           <AuthProvider>
             <WebSocketProvider>
               <StatusBar style="auto" />
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="index" />
-                <Stack.Screen name="login" />
-                <Stack.Screen name="(app)" />
-              </Stack>
+              <RootStack />
               <Toast />
             </WebSocketProvider>
           </AuthProvider>

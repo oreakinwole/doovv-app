@@ -23,6 +23,7 @@ export default function LoginScreen() {
             await login(values.email, values.password);
             router.replace('/(app)');
         } catch (error) {
+            console.log('Login error:', error);
             Toast.show({
                 type: 'error',
                 text1: 'Login failed',
@@ -49,7 +50,8 @@ export default function LoginScreen() {
                 </View>
 
                 <Formik
-                    initialValues={{ email: '', password: '' }}
+                    initialValues={{ email: 'customer@test.com', password: 'password' }}
+                    enableReinitialize={true}
                     validationSchema={validationSchema}
                     onSubmit={handleLogin}
                 >
