@@ -23,17 +23,52 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      const payload = this.jwtService.verify(token);
+      console.log('Token received:', token?.substring(0, 20) + '...');
+
+      // Verify token with explicit secret
+      const secret = 'doovo-secret-key';
+      const payload = this.jwtService.verify(token, { secret });
+      console.log('Token payload:', payload);
+
       const user = await this.authService.validateUser(payload);
+      console.log(
+        'User found:',
+        user ? { id: user.id, email: user.email } : 'null',
+      );
 
       if (!user) {
-        throw new UnauthorizedException('Invalid token');
+        throw new UnauthorizedException('User not found');
       }
 
       request.user = user;
       return true;
-    } catch {
-      throw new UnauthorizedException('Invalid token');
+    } catch (error) {
+      console.error('JWT Auth Error:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      });
+
+      // Handle specific JWT errors
+      if (error.name === 'TokenExpiredError') {
+        throw new UnauthorizedException('Token expired');
+      }
+      if (error.name === 'JsonWebTokenError') {
+        throw new UnauthorizedException('Invalid token format');
+      }
+      if (error.name === 'NotBeforeError') {
+        throw new UnauthorizedException('Token not active yet');
+      }
+
+      // If it's already an UnauthorizedException, re-throw it
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+
+      // For any other error, throw a generic unauthorized
+      throw new UnauthorizedException(
+        `Authentication failed: ${error.message}`,
+      );
     }
   }
 

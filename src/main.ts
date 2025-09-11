@@ -1,6 +1,3 @@
-// ============ MAIN APPLICATION ============
-
-// src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -9,7 +6,13 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // Debug JWT configuration
+  console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+  console.log('JWT_SECRET length:', process.env.JWT_SECRET?.length || 0);
+
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn', 'log', 'debug'],
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({

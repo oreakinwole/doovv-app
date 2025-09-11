@@ -10,7 +10,7 @@ import { PrismaService } from '../prisma/prisma.service';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'doovo-secret-key',
+      secret: 'doovo-secret-key',
       signOptions: { expiresIn: '24h' },
     }),
   ],

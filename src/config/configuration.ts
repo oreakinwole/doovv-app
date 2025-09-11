@@ -21,7 +21,7 @@ export default () => ({
   /**
    * Your secret sauce
    */
-  jwtSecret: process.env.JWT_SECRET,
+  jwtSecret: 'doovo-secret-key',
   //   jwtAlgorithm: process.env.JWT_ALGORITHM,
   //   jwtExpiresIn: process.env.JWT_EXPIRES_IN
 
