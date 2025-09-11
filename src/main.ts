@@ -34,10 +34,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  if (!existsSync('../../docs')) {
-    mkdirSync('../../docs', { recursive: true });
+  if (!existsSync('./docs')) {
+    mkdirSync('./docs', { recursive: true });
   }
-  writeFileSync('../../docs/swagger.json', JSON.stringify(document, null, 2));
+  writeFileSync('./docs/swagger.json', JSON.stringify(document, null, 2));
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
