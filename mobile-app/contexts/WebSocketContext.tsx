@@ -20,7 +20,9 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
         if (!token || !user) return;
 
         try {
-            const wsUrl = `${process.env.EXPO_PUBLIC_WS_URL || 'ws://localhost:9060'}?token=${token}`;
+            // const wsUrl = `${process.env.EXPO_PUBLIC_WS_URL || 'wss://doovv-app.onrender.com'}?token=${token}`;
+            const wsUrl = `${'wss://doovv-app.onrender.com'}?token=${token}`;
+
             wsRef.current = new WebSocket(wsUrl);
 
             wsRef.current.onopen = () => {

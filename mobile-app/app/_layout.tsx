@@ -4,7 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { AuthProvider } from '~/contexts/AuthContext';
-import { WebSocketProvider } from '~/contexts/WebSocketContext';
+// import { WebSocketProvider } from '~/contexts/WebSocketContext';
 import { StatusBar } from 'expo-status-bar';
 
 const queryClient = new QueryClient({
@@ -32,11 +32,11 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <WebSocketProvider>
-              <StatusBar style="auto" />
-              <RootStack />
-              <Toast />
-            </WebSocketProvider>
+            {/* <WebSocketProvider> */}
+            <StatusBar style="auto" />
+            <RootStack />
+            <Toast />
+            {/* </WebSocketProvider> */}
           </AuthProvider>
         </QueryClientProvider>
       </SafeAreaProvider>

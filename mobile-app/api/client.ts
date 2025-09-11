@@ -9,7 +9,7 @@ class ApiClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: BASE_URL,
+      baseURL: 'https://doovv-app.onrender.com/',
       timeout: 10000,
     });
 

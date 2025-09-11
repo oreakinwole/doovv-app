@@ -3,10 +3,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '~/contexts/AuthContext';
 import { TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
+import { useEffect } from 'react';
 
 export default function AppLayout() {
     const { user, logout } = useAuth();
     const isCustomer = user?.role === 'CUSTOMER';
+
+    useEffect(() => {
+        console.log('User:', user);
+    }, [user]);
+
+    if (!user) {
+        return null;
+    }
 
     return (
         <Tabs
@@ -22,49 +31,42 @@ export default function AppLayout() {
                 ),
             }}
         >
-            {isCustomer ? (
-                <>
-                    <Tabs.Screen
-                        name="create-booking"
-                        options={{
-                            title: 'Book Service',
-                            tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="add-circle-outline" size={size} color={color} />
-                            ),
-                        }}
-                    />
-                    <Tabs.Screen
-                        name="my-bookings"
-                        options={{
-                            title: 'My Bookings',
-                            tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="list-outline" size={size} color={color} />
-                            ),
-                        }}
-                    />
-                </>
-            ) : (
-                <>
-                    <Tabs.Screen
-                        name="available-jobs"
-                        options={{
-                            title: 'Available Jobs',
-                            tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="briefcase-outline" size={size} color={color} />
-                            ),
-                        }}
-                    />
-                    <Tabs.Screen
-                        name="my-jobs"
-                        options={{
-                            title: 'My Jobs',
-                            tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="checkmark-circle-outline" size={size} color={color} />
-                            ),
-                        }}
-                    />
-                </>
-            )}
+            <Tabs.Screen
+                name="create-booking"
+                options={isCustomer ? {
+                    title: 'Book Service',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="add-circle-outline" size={size} color={color} />
+                    ),
+                } : { href: null }}
+            />
+            <Tabs.Screen
+                name="my-bookings"
+                options={isCustomer ? {
+                    title: 'My Bookings',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="list-outline" size={size} color={color} />
+                    ),
+                } : { href: null }}
+            />
+            <Tabs.Screen
+                name="available-jobs"
+                options={!isCustomer ? {
+                    title: 'Available Jobs',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="briefcase-outline" size={size} color={color} />
+                    ),
+                } : { href: null }}
+            />
+            <Tabs.Screen
+                name="my-jobs"
+                options={!isCustomer ? {
+                    title: 'My Jobs',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="checkmark-circle-outline" size={size} color={color} />
+                    ),
+                } : { href: null }}
+            />
         </Tabs>
     );
 }
